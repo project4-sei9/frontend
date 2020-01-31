@@ -9,6 +9,7 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import AlertDismissible from './auth/components/AlertDismissible'
+import ManageUsers from './components/admin/ManageUsers'
 
 class App extends Component {
   constructor () {
@@ -51,7 +52,9 @@ class App extends Component {
             <ChangePassword alert={this.alert} user={user} />
           )} />
   
-
+          <AuthenticatedRoute user={user} path="/users" render={() => (
+                <ManageUsers admin={user}></ManageUsers>
+              )}/>   
         </main>
       </React.Fragment>
     )

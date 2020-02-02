@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.scss'
 import { Route } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
 import Header from './header/Header'
 import SignUp from './auth/components/SignUp'
@@ -10,14 +10,16 @@ import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import AlertDismissible from './auth/components/AlertDismissible'
 import ManageUsers from './components/admin/ManageUsers'
-
+import CreateBus from './components/buses/CreateBus'
+import Index from './components/buses/Index'
+import Home from './components/Home'
 class App extends Component {
   constructor () {
     super()
 
     this.state = {
       user: null,
-      alerts: []
+      alerts: [],
     }
   }
 
@@ -39,7 +41,10 @@ class App extends Component {
           <AlertDismissible key={index} variant={alert.type} message={alert.message} />
         ))}
         <main className="container">
-          <Route path='/sign-up' render={() => (
+          <Route path='/sign-up/driver' exact render={() => (
+            <SignUp alert={this.alert} setUser={this.setUser} />
+          )} />
+          <Route path='/sign-up/' exact render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
           )} />
           <Route path='/sign-in' render={() => (
@@ -54,9 +59,19 @@ class App extends Component {
   
           <AuthenticatedRoute user={user} path="/users" render={() => (
                 <ManageUsers admin={user}></ManageUsers>
+            
               )}/>   
+       <AuthenticatedRoute user={user} path="/buses/new" render={() => (
+          <CreateBus admin={user}></CreateBus>)}/>
+        <AuthenticatedRoute user={user} path="/buses" render={() => (
+          <Index admin={user}></Index>)}/>
+          
         </main>
-      </React.Fragment>
+        <Route admin={user} path="/" exact render={() => (
+          <Home admin={user}></Home>)}/>
+        
+        </React.Fragment>
+        
     )
   }
 }

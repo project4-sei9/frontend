@@ -9,8 +9,7 @@ export const signUp = credentials => {
       credentials: {
         email: credentials.email,
         name: credentials.name,
-        role: credentials.role,
-        isApproved: credentials.isApproved,
+        number: credentials.number,
         password: credentials.password,
         password_confirmation: credentials.passwordConfirmation
       }
@@ -18,6 +17,21 @@ export const signUp = credentials => {
   })
 }
 
+export const signUpDriver = credentials => {
+  return axios({
+    method: 'POST',
+    url: apiUrl + '/sign-up/driver',
+    data: {
+      credentials: {
+        email: credentials.email,
+        name: credentials.name,
+        number: credentials.number,
+        password: credentials.password,
+        password_confirmation: credentials.passwordConfirmation
+      }
+    }
+  })
+}
 export const signIn = credentials => {
   return axios({
     url: apiUrl + '/sign-in',

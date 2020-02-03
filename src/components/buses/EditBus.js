@@ -17,16 +17,16 @@ class EditBus extends Component {
      
             
     componentDidMount(){ // show bus info 
-        const user = this.props.admin;
-       // const busId = this.props.match.params.id;
-        show(user)
-        .then((response) => {
-            const bus = response.data.bus
-            this.setState({
-                dataForm:bus
-            })
+        const user = this.props.admin
+        const busId = this.props.match.params.id 
+        show(user,busId)
+        .then((res)=>{
+            const bus = res.data.bus
+            this.setState({ bus:bus })
+            console.log(this.state.bus)
         })
-        .catch(error => console.log(error))
+        .catch((err)=>console.log(err))
+  
     }
 
     handleChange = (event) => {
@@ -41,22 +41,30 @@ class EditBus extends Component {
          this.setState({
             bus:newForm
         })
+        console.log(this.state.bus)
     }
+
+    // getGeolocation() {
+    //     console.log('loc')
+    //      console.log(this.props)
+      
+    //     location((err, loc) => {
+    //         if (err) console.error(err)
+    //         else console.log(loc.latitude)
+    //     })
+
+    // }
+
     handleSubmit = (event) => {
         event.preventDefault();
-        //console.log(this.props)
-        // const location = require('@derhuerst/browser-location')
-        // location((err, loc) => {
-        //     if (err) console.error(err)
-        //     else console.log(loc.latitude)
-        // })
+       
         const user = this.props.admin
         const busId = this.props.match.params.id;
-        console.log()
+       // getGeolocation()
          const updateBus = this.state.bus;
          
          
-          update(user,updateBus,"5e3704412a594cdb90856d11")
+          update(user,updateBus,busId)
          .then(() => alert('updated'))
          .then(() => this.props.history.push(`/buses/${busId}`)) // redirect bus Id pade
          .catch((error) => console.log(error))
@@ -64,20 +72,20 @@ class EditBus extends Component {
     }
     
     render() { 
+        console.log(this.state.bus.bus_no)
         return ( 
             <div className="EditBus">
                <form onSubmit={this.handleSubmit}>
-              <label>Bus Number:</label> 
-              <input onChange={this.handleChange} type="number" name="bus_no" value={this.state.bus.bus_no}/> <br/>
-              <label>status:
+        <label>Bus Number:{this.state.bus.bus_no}</label> 
+               <label>status:
               <label>
               <input type="radio" value="DropOff" name= "status"
-                      checked={this.state.bus.status === 'DropOff'} 
+                       checked={this.state.bus.status === 'DropOff'} 
                       onChange={this.handleChange} />   
                       DropOff</label>
                       <label>
                <input type="radio" value="PickUp" name= "status"
-                      checked={this.state.bus.status === 'PickUp'} 
+                       checked={this.state.bus.status === 'PickUp'} 
                       onChange={this.handleChange} /> PickUp </label>  
                     </label> <br/> 
                     

@@ -24,7 +24,6 @@ class ShowBus extends Component {
                             <div>
                 <h1>{this.state.bus.bus_no}</h1>
                 <h1>{this.state.bus.status}</h1>
-                {/*   location <img src={this.state.meme.imageUrl} alt=""/> */}
             </div>
 
 

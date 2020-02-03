@@ -10,6 +10,9 @@ import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import AlertDismissible from './auth/components/AlertDismissible'
 import ManageUsers from './components/admin/ManageUsers'
+import Student from './components/student/Student'
+import StudentAdd from './components/student/StudentAdd'
+import StudentShow from './components/student/StudentShow'
 
 import Home from './components/Home'
 import CreateBus from './components/buses/CreateBus'
@@ -77,6 +80,18 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path= '/buses' render={()=>(
             <BusIndex admin={user}/>
           )}/>
+        
+
+          <AuthenticatedRoute user={user} exact path="/students" render={() => (
+                <Student user={user}></Student>
+              )}/> 
+       <AuthenticatedRoute user={user} exact path="/students/add" render={() => (
+                <StudentAdd user={user}></StudentAdd>
+              )}/> 
+     <AuthenticatedRoute user={user} exact path="/students/:studentId/show" render={() => (
+                <StudentShow user={user}></StudentShow >
+              )}/> 
+
         </main>
 
         <Route admin={user} path="/" exact render={() => (

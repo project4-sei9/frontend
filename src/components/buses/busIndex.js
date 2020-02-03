@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {index,destroy} from './api'
+import {index,destroy,update} from './api'
 import {Link} from 'react-router-dom';
 
 class busIndex extends Component {
@@ -13,8 +13,12 @@ class busIndex extends Component {
             const buses = response.data.buses
             this.setState({
                 buses:buses
+                 
             })
+            console.log(this.state.buses)
         })
+       
+
         .catch(()=> console.error)
   
 
@@ -38,10 +42,12 @@ class busIndex extends Component {
           
      {this.state.buses.map((bus,index) => (
         <div key={index}>
+            {console.log(bus)}
         <h5>Bus Number : {bus.bus_no}</h5>
         <h5>status : {bus.status}</h5>
     <button >View</button>
-    <Link to={`/buses/${bus._id}/edit`}>update</Link>
+    <Link to={`/buses/${bus._id}/edit`}>update</Link> || 
+    <Link to={`/buses/${bus._id}/show`}>show</Link>
     <button onClick={() => this.delete(bus._id)}>Delete</button>
     </div>
     ))}

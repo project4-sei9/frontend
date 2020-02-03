@@ -7,10 +7,10 @@ class CreateBus extends Component {
     state = {
       bus:{
         bus_no: 0,
-      // "status": "" ,//pickup = false , dropOff = true 
-      // "location":  { "latitude":"",
-      //               "longitude": ""
-            // }
+        status: "" ,//pickup = false , dropOff = true 
+        location:  { latitude:"",
+                    longitude: ""
+             }
           }
         }
     

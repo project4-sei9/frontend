@@ -13,12 +13,12 @@ import apiUrl from '../../apiConfig'
         })
         }
 
-    export const show = (admin,id) => {
+    export const show = (user,busId) => {
             return axios({
-            url:apiUrl + "/buses/" + id,
+            url:apiUrl + "/buses/" + busId,
             method: "get",
             headers:{
-                "Authorization":`Bearer ${admin.token}`
+                "Authorization":`Bearer ${user.token}`
             }
             })
         }
@@ -37,8 +37,6 @@ import apiUrl from '../../apiConfig'
                 
         }
    
-        
-
             export const update = (admin, updateBus , busId) =>{
                 return axios({
                     method:"patch", 

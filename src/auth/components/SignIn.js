@@ -24,9 +24,10 @@ class SignIn extends Component {
     const { alert, history, setUser } = this.props
 
     signIn(this.state)
-      .then(res => setUser(res.data.user))
+      .then(res => {console.log(res.data.user)
+        setUser(res.data.user)})
       .then(() => alert(messages.signInSuccess, 'success'))
-      .then(() => history.push('/'))
+      .then(() => history.push('/students'))
       .catch(error => {
         console.error(error)
         this.setState({ email: '', password: '' })

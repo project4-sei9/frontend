@@ -67,7 +67,7 @@ class App extends Component {
        <AuthenticatedRoute user={user} path="/buses/new" render={() => (
           <CreateBus admin={user}></CreateBus>)}/>
         
-        <AuthenticatedRoute user={user} path="/buses/:id/edit" render={(props) => (
+        <AuthenticatedRoute user={user} path="/buses/:id/edit" render={() => (
           <EditBus admin={user}></EditBus>)}/>
 
           <AuthenticatedRoute user={user} path="/buses/:id/show" render={(props)=>(

@@ -45,11 +45,11 @@ class EditBus extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         //console.log(this.props)
-        const location = require('@derhuerst/browser-location')
-        location((err, loc) => {
-            if (err) console.error(err)
-            else console.log(loc.latitude)
-        })
+        // const location = require('@derhuerst/browser-location')
+        // location((err, loc) => {
+        //     if (err) console.error(err)
+        //     else console.log(loc.latitude)
+        // })
         const user = this.props.admin
         const busId = this.props.match.params.id;
         console.log()
@@ -58,7 +58,7 @@ class EditBus extends Component {
          
           update(user,updateBus,"5e3704412a594cdb90856d11")
          .then(() => alert('updated'))
-        // .then(() => this.props.history.push(`/buses/${busId}`)) // redirect bus Id pade
+         .then(() => this.props.history.push(`/buses/${busId}`)) // redirect bus Id pade
          .catch((error) => console.log(error))
 
     }

@@ -41,6 +41,7 @@ class busIndex extends Component {
         <h5>Bus Number : {bus.bus_no}</h5>
         <h5>status : {bus.status}</h5>
     <button >View</button>
+    <Link to={`/buses/${bus._id}/edit`}>update</Link>
     <button onClick={() => this.delete(bus._id)}>Delete</button>
     </div>
     ))}

@@ -10,9 +10,12 @@ import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import AlertDismissible from './auth/components/AlertDismissible'
 import ManageUsers from './components/admin/ManageUsers'
-import CreateBus from './components/buses/CreateBus'
-import Index from './components/buses/Index'
+
 import Home from './components/Home'
+import CreateBus from './components/buses/CreateBus'
+import EditBus from './components/buses/EditBus'
+import ShowBus from './components/buses/ShowBus'
+ import BusIndex from './components/buses/busIndex'
 class App extends Component {
   constructor () {
     super()
@@ -63,10 +66,19 @@ class App extends Component {
               )}/>   
        <AuthenticatedRoute user={user} path="/buses/new" render={() => (
           <CreateBus admin={user}></CreateBus>)}/>
-        <AuthenticatedRoute user={user} path="/buses" render={() => (
-          <Index admin={user}></Index>)}/>
-          
+        
+        <AuthenticatedRoute user={user} path="/buses/:id/edit" render={(props) => (
+          <EditBus admin={user}></EditBus>)}/>
+
+          <AuthenticatedRoute user={user} path="/buses/:id/show" render={(props)=>(
+            <ShowBus admin={user} busId={props.match.params.id}></ShowBus>
+          )}/>
+        
+          <AuthenticatedRoute user={user} exact path= '/buses' render={()=>(
+            <BusIndex admin={user}/>
+          )}/>
         </main>
+
         <Route admin={user} path="/" exact render={() => (
           <Home admin={user}></Home>)}/>
         

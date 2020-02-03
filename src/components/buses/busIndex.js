@@ -1,0 +1,54 @@
+import React, {Component} from 'react';
+import {index,destroy} from './api'
+import {Link} from 'react-router-dom';
+
+class busIndex extends Component {
+    state = { 
+        buses: [] //[{},{}]
+     }
+   componentDidMount(){
+        const user = this.props.admin 
+        index(user)
+        .then(response => {
+            const buses = response.data.buses
+            this.setState({
+                buses:buses
+            })
+        })
+        .catch(()=> console.error)
+  
+
+    }
+
+    delete = (id) => {
+                const admin = this.props.admin
+                destroy(admin,id)
+                .then(() => alert("deleted"))
+                .then(() => {
+                    const buses = this.state.buses.filter((bus) => bus._id !== id)
+                    this.setState ({buses:buses})
+                })
+                .catch((err) => console.log(err))
+            }
+
+    render() { 
+        console.log(this.props.user)
+        return ( 
+            <div className="busIndex">
+          
+     {this.state.buses.map((bus,index) => (
+        <div key={index}>
+        <h5>Bus Number : {bus.bus_no}</h5>
+        <h5>status : {bus.status}</h5>
+    <button >View</button>
+    <button onClick={() => this.delete(bus._id)}>Delete</button>
+    </div>
+    ))}
+    
+        </div>
+              
+         )  
+        }
+}
+ 
+export default busIndex;

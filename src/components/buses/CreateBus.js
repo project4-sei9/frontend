@@ -1,89 +1,57 @@
 import React, { Component } from 'react';
-import {create, getDrivers} from "./api"
+import {create } from "./api"
+import {withRouter} from "react-router-dom"
+
 
 class CreateBus extends Component {
     state = {
-        bus_no:'',
-        drivers: [],
-        driver:'',
-        students:[{
-            name:'',
-            address:{
-                latitude:'',
-                longitude:''
-            }
-        }]
-      }
-      componentDidMount(){
-        const admin = this.props.admin
-        getDrivers(admin)
-        .then((response) => {
-        const drivers = response.data.users
-        this.setState({
-            drivers:drivers
-        })
-        }).catch(error => console.log(error))
-    }
-    HandleSubmit = event => {
-      event.preventDefault()
-      create(this.state)
-      .then(() => alert("Added a Bus"))
-      .then(() => this.setState({bus_no:'',driver: '', students:[]}))
-        .catch(error => {
-          console.error(error)
-          this.setState({bus_no:'',driver: '',students:[]})
-        })
-    }
-    handleChange = event => this.setState({
-        [event.target.name]: event.target.value
+      bus:{
+        bus_no: 0,
+      // "status": "" ,//pickup = false , dropOff = true 
+      // "location":  { "latitude":"",
+      //               "longitude": ""
+            // }
+          }
+        }
+    
+    
+    handleChange = (event) => {
+      // //get the name of input
+      const name = event.target.name;
+      // // get the value of input
+      const value = event.target.value;
+       const newForm = {...this.state.bus}
+       newForm[name] = value;
+      this.setState({
+          bus:newForm
       })
-  
+  }
+
+  handleSubmit = (event) => {
+      event.preventDefault();
+      const newBus = this.state.bus
+      const user = this.props.admin
+      create(user,newBus)
+      .then((res) => console.log(res))
+      .then(() => this.props.history.push('/buses'))
+      .catch((error) => console.log(error))
+  }
+
+    
+    
     render () {
-    const {bus_no,driver,name,latitude,longitude} = this.state
-  
-      return (
-          <div>lala
-        <form className='' onSubmit={this.HandleSubmit}>
-          <h3>Add a Bus</h3>
-          
-          <label htmlFor="bus_no">Bus Number</label>
-          <input
-            required
-            name="bus_no"
-            value={bus_no}
-            type="number"
-            placeholder="Bus Number"
-            onChange={this.handleChange}
-          />
-          <label htmlFor="drivers">driver</label>
-          {this.state.drivers.map((driver,index) => (
-        <div key={index}>
-          <select name="driver" onChange={this.handleChange} >
-          <option value={driver}>{driver}</option>
-          </select>
+      return(
+        <div className="CreateBus">
+          <h3>Add a Bus</h3><br/>
+          <form onSubmit={this.handleSubmit}>
+              <label>Bus Number:</label> 
+              <input onChange={this.handleChange} type="number" name="bus_no" value={this.state.bus.bus_no}/> <br/>
+              <button type="submit">Add Bus </button>
+          </form>
           </div>
-    ))}
-          <label htmlFor="students">Students</label>
-          <br/>
-          <label>Name:</label>
-          <input
-            name="student"
-            value={name}
-            type="text"
-            placeholder="Students"
-            onChange={this.handleChange}
-          />
-          <label>Address</label>
-          <br/>
-          <label>latitude</label>
-          
-          <label>longitude</label>
-          
-          <button type="submit">Submit</button>
-        </form>
-        </div>
-         );
-    }
+      )
+  }
+
+
 }
- 
-export default CreateBus;
+export default withRouter(CreateBus);

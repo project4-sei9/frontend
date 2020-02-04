@@ -22,11 +22,21 @@ export const show = (user,studentid) => {
     }
     })
     }
+    export const showBuses = (admin) => {
+        return axios({
+        url:apiUrl + "/student/buses/",
+        method: "get",
+        headers:{
+            "Authorization":`Bearer ${admin.token}`
+        }
+        })
+        }
 
-export const create = (user,student) => {
+export const create = (user,data) => {
+        console.log(data)
         return axios({url:apiUrl + `/students`,
         method: "post",
-        data:{student: student},
+        data:{data},
         headers:{
             "Authorization":`Bearer ${user.token}`
         }

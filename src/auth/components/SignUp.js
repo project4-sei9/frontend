@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { Button } from 'react-bootstrap';
 import { signUp, signIn } from '../api'
+import family from "../../images/mother.svg"
+//import driver from "../images/bus copy.svg"
 import messages from '../messages'
 
 class SignUp extends Component {
@@ -12,7 +15,8 @@ class SignUp extends Component {
       email: '',
       password: '',
       passwordConfirmation: '',
-      number:''
+      number:'',
+      driver:false
     }
   }
 
@@ -24,15 +28,14 @@ class SignUp extends Component {
     event.preventDefault()
 
     const { alert, history, setUser } = this.props
-
-    signUp(this.state)
+      signUp(this.state) 
       .then(() => signIn(this.state))
       .then(res => setUser(res.data.user))
       .then(() => alert(messages.signUpSuccess, 'success'))
-      .then(() => history.push('/'))
+      .then(() => history.push('/students'))
       .catch(error => {
         console.error(error)
-        this.setState({ name:"",email: '', password: '', passwordConfirmation: '',number:'' })
+        this.setState({ name:"",email: '', password: '', passwordConfirmation: '',number:''})
         alert(messages.signUpFailure, 'danger')
       })
   }
@@ -41,9 +44,13 @@ class SignUp extends Component {
     const { name, email, password, passwordConfirmation , number} = this.state
      //console.log(this.state.driver)
     return (
+
       <form className='auth-form' onSubmit={this.onSignUp}>
+        <div className="center">
+        <img src={family} height="200px" width="200px"></img>
+        <br/>
         <h3>Sign Up</h3>
-        
+        </div>
         <label htmlFor="name">Name</label>
         <input
           required
@@ -52,6 +59,7 @@ class SignUp extends Component {
           type="name"
           placeholder="Name"
           onChange={this.handleChange}
+          className="form-control"
         />
         <label htmlFor="email">Email</label>
         <input
@@ -61,6 +69,7 @@ class SignUp extends Component {
           type="email"
           placeholder="Email"
           onChange={this.handleChange}
+          className="form-control"
         />
         <label htmlFor="password">Password</label>
         <input
@@ -70,6 +79,7 @@ class SignUp extends Component {
           type="password"
           placeholder="Password"
           onChange={this.handleChange}
+          className="form-control"
         />
         <label htmlFor="passwordConfirmation">Confirm Password</label>
         <input
@@ -79,17 +89,19 @@ class SignUp extends Component {
           type="password"
           placeholder="Confirm Password"
           onChange={this.handleChange}
+          className="form-control"
         />
         <label htmlFor="number">Contact Number</label>
         <input
           required
           name="number"
           value={number}
-          type="number"
-          placeholder="Number"
+          placeholder="(555)-555-5555"
+          type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           onChange={this.handleChange}
+          className="form-control"
         />
-        <button type="submit">Sign Up</button>
+        <Button variant="outline-info" type="submit">Sign Up</Button>
       </form>
     )
   }

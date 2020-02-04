@@ -2,7 +2,16 @@ $success: #c7f282;
 $warning: #f1e681;
 $error: #f08181;
 $charcoal: #ccc;
-
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap');
+body{
+  //background-color: oldlace;
+  background: url(./images/silver.jpg) no-repeat;
+  background-size: cover;
+  //@at-rootbackground-color: rgb(252, 249, 243) ;
+  //background:0.5;
+  //background-repeat: ;
+ // background-position: ;
+}
 .flash-success,
 .flash-warning,
 .flash-error {
@@ -16,7 +25,27 @@ $charcoal: #ccc;
   width: 50%;
   z-index: 1;
 }
+.register{
+display: flex;
+margin-top:5%;
+justify-content: space-evenly;
+//border: 1px solid lightgrey;
+//margin:20px;
 
+}
+.intro-img{
+  border: 1px solid white;
+  border-radius:10px;
+  padding:50px;
+  //padding:20px;
+  background: white;
+  text-align: center;
+}
+.intro-img:hover{
+  //background-color:rgb(170, 232, 231);
+  //background-color:rgb(243, 235, 186);
+  background-color:rgb(198, 231, 250);
+}
 .flash-success {
   background-color: $success;
 }
@@ -28,13 +57,29 @@ $charcoal: #ccc;
 .flash-error {
   background-color: $error;
 }
-
+.main-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid lightgray;
+  background-color: white;
+  padding:40px 60px;
+  margin: 5% auto 2%;
+  max-width: 80%;
+  button {
+    align-self: center;
+    max-width: 200px;
+  }
+}
 .auth-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 15% auto 0;
-  max-width: 600px;
+  border: 1px solid lightgray;
+  background-color: white;
+  padding:40px 60px;
+  margin: 5% auto 2%;
+  max-width: 60%;
 
   h3,
   input {
@@ -42,7 +87,21 @@ $charcoal: #ccc;
   }
 
   button {
-    align-self: flex-end;
+    align-self: center;
     max-width: 200px;
   }
+.center{
+  align-self: center;
+  text-align: center;
+}
+.form-inline{
+  align-self: center;
+    }
+}
+.form-check-inline {
+display: flex;
+justify-content: space-evenly;
+}
+#center {
+  text-align:center;
 }

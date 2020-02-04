@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
 import './App.scss'
 import { Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
 import Header from './header/Header'
 import SignUp from './auth/components/SignUp'
+import SignUpDriver from './auth/components/SignUpDriver'
 import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import AlertDismissible from './auth/components/AlertDismissible'
+import Register from './components/Register'
 import ManageUsers from './components/admin/ManageUsers'
 import CreateBus from './components/buses/CreateBus'
-import Index from './components/buses/Index'
-import Home from './components/Home'
+import EditBus from './components/buses/EditBus'
+import ShowBus from './components/buses/ShowBus'
+import Student from './components/student/Student'
+import StudentAdd from './components/student/StudentAdd'
+import StudentShow from './components/student/StudentShow'
+
 class App extends Component {
   constructor () {
     super()
@@ -42,7 +47,7 @@ class App extends Component {
         ))}
         <main className="container">
           <Route path='/sign-up/driver' exact render={() => (
-            <SignUp alert={this.alert} setUser={this.setUser} />
+            <SignUpDriver alert={this.alert} setUser={this.setUser} />
           )} />
           <Route path='/sign-up/' exact render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
@@ -56,21 +61,37 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
           )} />
-  
-          <AuthenticatedRoute user={user} path="/users" render={() => (
-                <ManageUsers admin={user}></ManageUsers>
-            
-              )}/>   
-       <AuthenticatedRoute user={user} path="/buses/new" render={() => (
-          <CreateBus admin={user}></CreateBus>)}/>
-        <AuthenticatedRoute user={user} path="/buses" render={() => (
-          <Index admin={user}></Index>)}/>
-          
+          <AuthenticatedRoute user={user} path='/users/' render={() => (
+            <ManageUsers alert={this.alert} admin={user} /> )}/>
+
+            <AuthenticatedRoute user={user} exact path='/buses/new' render={() => (
+            <CreateBus admin={user} />
+            )} />
+                <AuthenticatedRoute user={user} exact path="/students" render={() => (
+                <Student user={user}></Student>
+              )}/> 
+       <AuthenticatedRoute user={user} exact path="/students/add" render={() => (
+                <StudentAdd user={user}></StudentAdd>
+              )}/> 
+     <AuthenticatedRoute user={user} exact path="/students/:studentId/show" render={() => (
+                <StudentShow user={user}></StudentShow >
+              )}/> 
+             <AuthenticatedRoute user={user} path="/buses/driver" render={()=>(
+            <ShowBus admin={user} ></ShowBus>
+          )}/>
+         {/* <AuthenticatedRoute user={user} exact path='/buses/index' render={()=>(
+            <BusIndex admin={user}/>
+          )}/> */}
+        <AuthenticatedRoute user={user} excat path="/buses/edit" render={() => (
+          <EditBus admin={user} id={this.state.bus._id}></EditBus>)}/>
+          {/* <AuthenticatedRoute user={user} excat path="/buses/:busId/show" render={(props)=>(
+            <ShowU admin={user} busId={props.match.params.id}></ShowU>
+          )}/> */}
+
         </main>
-        <Route admin={user} path="/" exact render={() => (
-          <Home admin={user}></Home>)}/>
-        
-        </React.Fragment>
+        <Route admin={user} path="/register" exact render={() => (
+          <Register admin={user}></Register>)}/>
+         </React.Fragment>
         
     )
   }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-
-import { signUp, signIn } from '../api'
+//import family from "../images/mother.svg"
+import driver from "../../images/bus copy.svg"
+import { Button } from 'react-bootstrap';
+import { signUpDriver, signIn} from '../api'
 import messages from '../messages'
 
 class SignUpDriver extends Component {
@@ -30,7 +32,7 @@ class SignUpDriver extends Component {
       .then(() => signIn(this.state))
       .then(res => setUser(res.data.user))
       .then(() => alert(messages.signUpSuccess, 'success'))
-      .then(() => history.push('/'))
+      .then(() => history.push('/buses/'))
       .catch(error => {
         console.error(error)
         this.setState({ name:"",email: '', password: '', passwordConfirmation: '',number:'' })
@@ -43,8 +45,11 @@ class SignUpDriver extends Component {
      //console.log(this.state.driver)
     return (
       <form className='auth-form' onSubmit={this.onSignUp}>
+         <div className="center">
+        <img src={driver} height="200px" width="200px"></img>
+        <br/>
         <h3>Sign Up</h3>
-        
+        </div>
         <label htmlFor="name">Name</label>
         <input
           required
@@ -52,6 +57,7 @@ class SignUpDriver extends Component {
           value={name}
           type="name"
           placeholder="Name"
+          className="form-control"
           onChange={this.handleChange}
         />
         <label htmlFor="email">Email</label>
@@ -61,6 +67,7 @@ class SignUpDriver extends Component {
           value={email}
           type="email"
           placeholder="Email"
+          className="form-control"
           onChange={this.handleChange}
         />
         <label htmlFor="password">Password</label>
@@ -70,6 +77,7 @@ class SignUpDriver extends Component {
           value={password}
           type="password"
           placeholder="Password"
+          className="form-control"
           onChange={this.handleChange}
         />
         <label htmlFor="passwordConfirmation">Confirm Password</label>
@@ -79,6 +87,7 @@ class SignUpDriver extends Component {
           value={passwordConfirmation}
           type="password"
           placeholder="Confirm Password"
+          className="form-control"
           onChange={this.handleChange}
         />
         <label htmlFor="number">Contact Number</label>
@@ -86,11 +95,13 @@ class SignUpDriver extends Component {
           required
           name="number"
           value={number}
-          type="number"
-          placeholder="Number"
+          placeholder="(555)-555-5555"
+          type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          className="form-control"
           onChange={this.handleChange}
         />
-        <button type="submit">Sign Up</button>
+        
+        <Button variant="outline-info" type="submit">Sign Up</Button>
       </form>
     )
   }
